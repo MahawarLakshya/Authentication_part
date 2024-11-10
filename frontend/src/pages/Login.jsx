@@ -43,8 +43,8 @@ const Login = () => {
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
           <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg backdrop-filter backdrop-blur-lg bg-opacity-80">
             <ToastContainer />
-            <h1 className="text-3xl font-semibold text-center text-gray-700 mb-6">
-              Login to <span className="text-indigo-600">Calendar</span>
+            <h1 className="text-3xl font-semibold text-center text-gray-700 mb-2">
+              Login to <span className="text-indigo-600">App</span>
             </h1>
             
             <form onSubmit={handlesubmit} className="space-y-6">

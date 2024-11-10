@@ -49,7 +49,7 @@ app.post('/login', async(req, res) => {
 
     const { username, pwd } = req.body;
     const existuser = await user.findOne({ username, pwd });
-    if (existuser) {
+    if (existuser && existuser.pwd === pwd) {
         const token = jwt.sign({ username: existuser.username }, process.env.secret_key, { expiresIn: '1h' });
 
         res.json({ success: true, token });
@@ -59,14 +59,14 @@ app.post('/login', async(req, res) => {
 });
 app.post('/logout', (req, res) => {
 
-    // res.localStorage.removeItem('token');
+    // res.localStorage.removeItem('token'); 
     res.json({ message: 'Logged out successfully' });
 });
 
 
 // Protected route
 app.get('/dashboard', authMiddleware, (req, res) => {
-    res.send(`Welcome ${req.user.username}`);
+    res.json({ success: true, username: req.user.username });
 });
 
 app.listen(3000, () => console.log('Server running on port 3000'));

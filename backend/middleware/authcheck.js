@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const authcheck = (req, res, next) => {
-    const token = req.headers['authorization'];
+    const token = req.headers['authorization']
 
     if (!token) {
         return res.status(401).json({ message: 'No token provided, authentication failed' });
@@ -11,8 +11,8 @@ const authcheck = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.secret_key);
-        req.user = decoded.username; // Attach user info to the request
-        next(); // Proceed to the next middleware or route handler
+        req.user = decoded; // Attach user info to the request
+        next(); // Proceed to the next route handler
     } catch (error) {
         res.status(401).json({ message: 'Authentication failed', error: error.message });
     }
