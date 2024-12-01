@@ -21,7 +21,7 @@ const Signup = () => {
       }
 
        try{ 
-        const resp=await axios.post('http://localhost:3000/signup',{
+        const resp=await axios.post('https://authentication-part.onrender.com/signup',{
             username,pwd
         })
       
