@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import UserContext from '../context/UserContext';
 const Dashboard = () => {
-  const [username, setUsername] = useState('');
+  // const [username, setUsername] = useState('');
   const navigate = useNavigate();
+  const { user,setUser } = useContext(UserContext);
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -17,7 +18,7 @@ const Dashboard = () => {
             }
           });
           // console.log(response.data);  // Log the response to check the data
-          setUsername(response.data.username); // Set the username in state
+          setUser(response.data); // Set the username in state
         } else {
           navigate('/'); // Redirect to login if token is missing
         }
@@ -28,12 +29,13 @@ const Dashboard = () => {
     };
 
     fetchUsername();
-  }, [navigate]);
+  }, [navigate,setUser]);
 
   const handleLogout = async () => {
     try {
       await axios.post('http://localhost:3000/logout'); // Call the logout endpoint
       localStorage.removeItem('token'); // Remove the token from local storage
+      setUser(null); // Set the user in context to
       navigate('/'); // Redirect to the login page
     } catch (error) {
       console.error('Logout failed', error);
@@ -42,7 +44,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-green-400 to-blue-500 text-white">
-      <h1 className="text-4xl font-semibold">Welcome {username} to Your Dashboard!</h1>
+      <h1 className="text-4xl font-semibold">Welcome {user?.username } to Your Dashboard!</h1>
       <button
         onClick={handleLogout}
         className="absolute bottom-5 left-5 py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700"
