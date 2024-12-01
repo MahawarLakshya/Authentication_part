@@ -12,7 +12,7 @@ const Dashboard = () => {
       try {
         const token = localStorage.getItem('token'); // Get the token from local storage
         if (token) {
-          const response = await axios.get('http://localhost:3000/dashboard', {
+          const response = await axios.get('https://authentication-part.onrender.com/dashboard', {
             headers: {
               Authorization: token // Send token in headers
             }
